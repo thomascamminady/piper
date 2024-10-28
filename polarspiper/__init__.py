@@ -3,7 +3,7 @@
 """
 # FILE: piper/__init__.py
 
-from polarspiper.piper import PolarsPiper
+from polarspiper.polarspiper import PolarsPiper
 
 drop_rows_that_are_all_null = PolarsPiper.drop_rows_that_are_all_null
 drop_columns_that_are_all_null = PolarsPiper.drop_columns_that_are_all_null
