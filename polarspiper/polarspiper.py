@@ -215,10 +215,6 @@ class PolarsPiper:
         tuple[pl.DataFrame, bool]
             The DataFrame and a boolean indicating success.
 
-        Examples
-        --------
-        >>> df = pl.DataFrame({"a": ["2023-01-01"]})
-        >>> Piper.try_to_datetime(df, "a")
         """
         for format in [
             "%B %d, %Y, %I:%M %p",  # e.g. "February 22, 2023, 11:56 AM"

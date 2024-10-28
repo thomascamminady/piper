@@ -1,7 +1,7 @@
 """
 .. include:: ../README.md
 """
-# FILE: piper/__init__.py
+# FILE: polarspiper/__init__.py
 
 from polarspiper.polarspiper import PolarsPiper
 
