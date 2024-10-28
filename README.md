@@ -1,4 +1,4 @@
-# piper
+# polarspiper
 A collection of pipes for `polars`.
 
 
