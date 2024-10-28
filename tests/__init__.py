@@ -1,1 +1,1 @@
-"""Unit test package for piper."""
+"""Unit test package for polarspiper."""
