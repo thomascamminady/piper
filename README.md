@@ -1,9 +1,20 @@
 # polarspiper
 A collection of pipes for `polars`.
 
+## Install
+```python
+poetry add polarspiper
+```
+
+## Usage
+```python
+import polarspiper as ppp
+
+df.pipe(ppp.drop_rows_that_are_all_null)
+```
+
 
 ## Development
-
 Set up the full project by running `make`.
 
 ## Documentation
