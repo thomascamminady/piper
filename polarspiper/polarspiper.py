@@ -71,18 +71,18 @@ class PolarsPiper:
         return _df[[s.name for s in _df if not (s.null_count() == _df.height)]]
 
     @staticmethod
-    def semicircle_to_degrees(_df: pl.DataFrame) -> pl.DataFrame:
+    def semicircle_to_degrees(_df: SomeDataFrame) -> SomeDataFrame:
         """
         Convert semicircles to degrees.
 
         Parameters
         ----------
-        _df : pl.DataFrame
+        _df : SomeDataFrame
             The input DataFrame.
 
         Returns
         -------
-        pl.DataFrame
+        SomeDataFrame
             The DataFrame with semicircles converted to degrees.
 
         """
@@ -92,21 +92,21 @@ class PolarsPiper:
 
     @staticmethod
     def convert_times_to_datetime(
-        _df: pl.DataFrame, cols: list[str] | None = None
-    ) -> pl.DataFrame:
+        _df: SomeDataFrame, cols: list[str] | None = None
+    ) -> SomeDataFrame:
         """
         Convert the times to datetime.
 
         Parameters
         ----------
-        _df : pl.DataFrame
+        _df : SomeDataFrame
             The input DataFrame.
         cols : list of str, optional
             The columns to convert. If None, defaults to common time columns.
 
         Returns
         -------
-        pl.DataFrame
+        SomeDataFrame
             The DataFrame with times converted to datetime.
 
         """
@@ -117,21 +117,21 @@ class PolarsPiper:
 
     @staticmethod
     def cast_time_in_zone_string_to_list_of_float(
-        _df: pl.DataFrame, cols: list[str] | None = None
-    ) -> pl.DataFrame:
+        _df: SomeDataFrame, cols: list[str] | None = None
+    ) -> SomeDataFrame:
         """
         Cast the time in zone string to a list of floats.
 
         Parameters
         ----------
-        _df : pl.DataFrame
+        _df : SomeDataFrame
             The input DataFrame.
         cols : list of str, optional
             The columns to convert. If None, defaults to common time zone columns.
 
         Returns
         -------
-        pl.DataFrame
+        SomeDataFrame
             The DataFrame with time in zone strings converted to lists of floats.
 
         """
@@ -142,23 +142,23 @@ class PolarsPiper:
         )
 
     @staticmethod
-    def utf8_promotion(_df: pl.DataFrame) -> pl.DataFrame:
+    def utf8_promotion(_df: SomeDataFrame) -> SomeDataFrame:
         """
         Try to promote string datatypes to datetimes, ints, or floats.
 
         Parameters
         ----------
-        _df : pl.DataFrame
+        _df : SomeDataFrame
             The input DataFrame.
 
         Returns
         -------
-        pl.DataFrame
+        SomeDataFrame
             The DataFrame with promoted datatypes.
 
         """
         for col in _df.columns:
-            if _df[col].dtype != pl.Utf8:
+            if _df.collect_schema()[col] != pl.Utf8:
                 continue
 
             _df, _success = PolarsPiper.try_to_datetime(_df, col)
@@ -175,8 +175,8 @@ class PolarsPiper:
 
     @staticmethod
     def try_convert_dtypes_to_float_if_possible(
-        _df: pl.DataFrame,
-    ) -> pl.DataFrame:
+        _df: SomeDataFrame,
+    ) -> SomeDataFrame:
         """
         Convert the data types to float if possible.
 
@@ -201,21 +201,21 @@ class PolarsPiper:
 
     @staticmethod
     def try_to_datetime(
-        _df: pl.DataFrame, col: str
-    ) -> tuple[pl.DataFrame, bool]:
+        _df: SomeDataFrame, col: str
+    ) -> tuple[SomeDataFrame, bool]:
         """
         Try to convert the column to a datetime datatype.
 
         Parameters
         ----------
-        _df : pl.DataFrame
+        _df : SomeDataFrame
             The input DataFrame.
         col : str
             The column to convert.
 
         Returns
         -------
-        tuple[pl.DataFrame, bool]
+        tuple[SomeDataFrame, bool]
             The DataFrame and a boolean indicating success.
 
         """
@@ -237,14 +237,14 @@ class PolarsPiper:
 
     @staticmethod
     def try_to_numeric(
-        _df: pl.DataFrame, col: str, dtype: DataTypeClass
-    ) -> tuple[pl.DataFrame, bool]:
+        _df: SomeDataFrame, col: str, dtype: DataTypeClass
+    ) -> tuple[SomeDataFrame, bool]:
         """
         Try to convert the column to a numeric datatype.
 
         Parameters
         ----------
-        _df : pl.DataFrame
+        _df : SomeDataFrame
             The input DataFrame.
         col : str
             The column to convert.
@@ -253,7 +253,7 @@ class PolarsPiper:
 
         Returns
         -------
-        tuple[pl.DataFrame, bool]
+        tuple[SomeDataFrame, bool]
             The DataFrame and a boolean indicating success.
 
         """
