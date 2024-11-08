@@ -1,10 +1,13 @@
 """Polars pipes for the performance management chart."""
 
 import logging
+from typing import TypeVar
 
 import polars as pl
 from polars.datatypes.classes import DataTypeClass
 from polars.exceptions import ComputeError, InvalidOperationError
+
+SomeDataFrame = TypeVar("SomeDataFrame", pl.LazyFrame, pl.DataFrame)
 
 
 class PolarsPiper:
@@ -263,3 +266,29 @@ class PolarsPiper:
             return _df, False
         except ComputeError:
             return _df, False
+
+    @staticmethod
+    def sort_columns_by_null_count(_df: SomeDataFrame) -> SomeDataFrame:
+        """Sort the columns by null count.
+
+        Parameters
+        ----------
+        _df : SomeDataFrame
+            The input DataFrame.
+
+        Returns
+        -------
+        SomeDataFrame
+            The DataFrame with columns sorted by null count.
+        """
+        if isinstance(_df, pl.LazyFrame):
+            null_count = _df.null_count().collect()
+        else:
+            null_count = _df.null_count()
+
+        return _df.select(
+            null_count.transpose(include_header=True)
+            .sort("column_0")
+            .get_column("column")
+            .to_list()
+        )

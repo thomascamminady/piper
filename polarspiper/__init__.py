@@ -19,7 +19,7 @@ try_convert_dtypes_to_float_if_possible = (
 try_to_datetime = PolarsPiper.try_to_datetime
 try_to_numeric = PolarsPiper.try_to_numeric
 magic = PolarsPiper.magic
-
+sort_columns_by_null_count = PolarsPiper.sort_columns_by_null_count
 
 __all__ = [
     "PolarsPiper",
@@ -33,4 +33,5 @@ __all__ = [
     "try_to_datetime",
     "try_to_numeric",
     "magic",
+    "sort_columns_by_null_count",
 ]
